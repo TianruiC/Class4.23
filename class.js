@@ -1,32 +1,32 @@
-var geoP=d3.json("data/us-states.json")
-var stateP=d3.json("data/us-states.json")
+var geoP=d3.json("us-states.json")
+var stateP=d3.json("us-states.json")
 
-// geoP.then(function(geoData)
-// {
-//   console.log(geoData);
-//   drawMap(geoData)
-// })
+geoP.then(function(geoData)
+{
+  console.log(geoData);
+  drawMap(geoData)
+})
 
-Promise.all([geoP,stateP])
-       .then(function(values)
-     {
-       var geoData=values[0];
-       var stateData=values[1];
-       console.log(geoData,stateDate);
-       var stateDict={}
-       stateData.forEach(function(state)
-       {
-         stateDict[state.NAME.trim()]=state;
-       })
-       console.log(stateDict)
-       //stateDict.Alabama
-       //stateDict.["New York"] we can use branket to fixed the space problem
-       geoData.features.forEach(function(state)
-       {
-         state
-       })
-       drawMap(geoData);
-     })
+// Promise.all([geoP,stateP])
+//        .then(function(values)
+//      {
+//        var geoData=values[0];
+//        var stateData=values[1];
+//        console.log(geoData,stateData);
+//        var stateDict={}
+//        stateData.features.forEach(function(state)
+//        {
+//          stateDict[state.NAME.trim()]=state;
+//        })
+//        console.log(stateDict)
+//        //stateDict.Alabama
+//        //stateDict.["New York"] we can use branket to fixed the space problem
+//        geoData.features.forEach(function(state)
+//        {
+//          state
+//        })
+//        drawMap(geoData);
+//      })
 var drawMap=function(geoData)
 {
   var screen={width:700,height:600}
@@ -37,9 +37,9 @@ var drawMap=function(geoData)
 
   var stateGenerator=d3.geoPath().projection(projection);
 
-  console.log(projection([-85,35]))
+  //console.log(projection([-85,35]))
 
-  var svg=d3.select("svg")
+  var svg=d3.select("body").append("svg")
             .attr("width",screen.width)
             .attr("height",screen.height);
 
@@ -54,10 +54,10 @@ var drawMap=function(geoData)
   states.append("path")
        .attr("d",stateGenerator)
        //.attr("d",function(d){return stateGenerator(d)});
-       .attr("stroke","red")
-       .attr("fill",none)
-  states.append("text")
-        .text(function(d){return d.properties.ABBR;})
-        .attr("x",function(d){return stateGenerator.centroid(d)[0];})
-        .attr("y",function(d){return stateGenerator.centroid(d)[1];})
+       .attr("stroke","grey")
+       // .attr("fill",none)
+  // states.append("text")
+  //       .text(function(d){return d.properties.ABBR;})
+  //       .attr("x",function(d){return stateGenerator.centroid(d)[0];})
+  //       .attr("y",function(d){return stateGenerator.centroid(d)[1];})
 }
